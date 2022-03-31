@@ -57,7 +57,7 @@ def imDisplay(filename: str, representation: int):
     :return: None
     """
     #transform accordingly
-    image = imReadAndConvert(filename,representation).astype(np.uint8)
+    image = imReadAndConvert(filename,representation)
     plt.imshow(image)
     plt.show()
 
@@ -133,9 +133,9 @@ def quantizeImage(imOrig: np.ndarray, nQuant: int, nIter: int) -> (List[np.ndarr
     """
 
     #if RGB image
-    flagRGB = False
+    isRGB = False
     if len(imOrig.shape) == 3:
-        flagRGB = True
+        isRGB = True
         #transform to YIQ
         imgYIQ = transformRGB2YIQ(imOrig)
         #y-channel
@@ -191,7 +191,7 @@ def quantizeImage(imOrig: np.ndarray, nQuant: int, nIter: int) -> (List[np.ndarr
         #normalize the image to [0,1]
         encodeImg = (encodeImg / 255)
 
-        if flagRGB:
+        if isRGB:
             #y-channel
             imgYIQ[:, :, 0] = encodeImg.copy()
             #transform back to RGB
